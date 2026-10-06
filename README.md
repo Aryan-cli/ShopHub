@@ -542,6 +542,14 @@ In particular, wallet generation, private-key/seed handling, transaction signing
              💸 Seller Funds
 ```
 
+### 👨‍💻 Creator & Ownership
+
+*   **Owner & Developer:** [Aryan Mishra](https://github.com/Aryan-cli)
+*   **Project Started:** 2022
+*   **Public Release:** 2024/2025
+
+> **Note on History:** ShopHub was originally built and developed in 2022. However, it was pushed to GitHub much later because the developer was not using Git/GitHub at that time. The project has since been maintained and updated for public use.
+
 ---
 
 # 📁 Project Concept
