@@ -39,8 +39,6 @@ When a buyer purchases a product:
 
 If something goes wrong, the transaction can enter a **dispute** and be reviewed through the Admin Dashboard.
 
-> Escrow rules should be clearly documented for users, since they define when funds can be released or refunded.
-
 ---
 
 ## 💰 Crypto Wallet
@@ -60,8 +58,6 @@ The project can also be configured with a wallet master seed through the environ
 ```env
 BTC_MASTER_SEED=""
 ```
-
-**Important:** Never commit a real wallet seed phrase to GitHub. Use environment variables or a dedicated secret-management system.
 
 ---
 
@@ -328,6 +324,9 @@ SESSION_SECRET=""
 # Gmail notifications
 GMAIL_USER=""
 GMAIL_APP_PASSWORD=""
+
+# Optional BscScan Api
+BSCSCAN_API_KEY=""
 ```
 
 ### Environment Variables
@@ -342,6 +341,7 @@ GMAIL_APP_PASSWORD=""
 | `GMAIL_USER`                | Gmail account used for notifications                |
 | `GMAIL_APP_PASSWORD`        | Gmail App Password used to send emails              |
 | `ADMIN_WITHDRAWAL_PASSWORD` | Password protecting administrative withdrawals      |
+| `BSCSCAN_API_KEY`           | Optional but if possible add BscScan api key        |
 
 Use strong, randomly generated secrets in production.
 
