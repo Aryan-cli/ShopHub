@@ -2,13 +2,14 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import bcrypt from "bcrypt";
 import * as ethers from "ethers";
 import { storage } from "./storage";
 import { users, products, reviews, orders, orderItems, forumPosts, forumComments, favorites, conversationParticipants, follows, conversations, messages, notificationSettings, userBlockedChat, userMutedChat, virtualWallets, ledgerEntries, escrowOrders, purchaseSnapshots, disputes, paymentCoins, adminSettings, productFees, withdrawalRequests, userWallets } from "@shared/schema";
 import { eq, and, or, desc, sql, gte, lte } from "drizzle-orm";
 import { z } from "zod";
-import { db } from "./db";
+import { db, pool } from "./db";
 import { insertProductSchema, insertReviewSchema, insertForumPostSchema, insertForumCommentSchema, paymentWallets, paymentSessions } from "@shared/schema";
 import { walletService } from "./wallet-service";
 import { blockchainService } from "./blockchain-service";
@@ -167,8 +168,21 @@ export async function registerRoutes(
     throw new Error("SESSION_SECRET must be set");
   }
 
+  // Sessions live in Postgres so they survive restarts and are shared
+  // across serverless function instances (MemoryStore is per-process)
+  const PgSessionStore = connectPgSimple(session);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS "session" (
+      "sid" varchar NOT NULL PRIMARY KEY,
+      "sess" json NOT NULL,
+      "expire" timestamp(6) NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS "IDX_session_expire" ON "session" ("expire");
+  `);
+
   app.use(
     session({
+      store: new PgSessionStore({ pool }),
       secret: sessionSecret,
       resave: false,
       saveUninitialized: false,

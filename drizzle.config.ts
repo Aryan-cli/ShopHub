@@ -8,6 +8,8 @@ export default defineConfig({
   out: "./migrations",
   schema: "./shared/schema.ts",
   dialect: "postgresql",
+  // "session" is managed by connect-pg-simple, not Drizzle
+  tablesFilter: ["!session"],
   dbCredentials: {
     url: process.env.DATABASE_URL,
   },
