@@ -1,0 +1,22 @@
+[build]
+  command = "npm run build"
+  # Vite writes the client bundle to dist/public; dist/index.cjs is the Express server bundle
+  publish = "dist/public"
+
+[functions]
+  node_bundler = "esbuild"
+  # Native / WebAssembly packages can't be inlined by the bundler
+  external_node_modules = ["bcrypt", "tiny-secp256k1", "bufferutil"]
+
+# The Express API runs as the "api" Netlify Function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# Client-side routing (wouter): serve the SPA for unknown paths
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -82,6 +82,7 @@
     "react-qr-code": "^2.0.18",
     "react-resizable-panels": "^2.1.7",
     "recharts": "^2.15.2",
+    "serverless-http": "^3.2.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "tiny-secp256k1": "^2.2.4",

@@ -441,10 +441,10 @@ export default function ProductDetail() {
   const comments = product.reviews?.filter((r) => !r.rating) || [];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-clip">
       <Navbar />
       
-      <main className="container px-4 md:px-8 py-8">
+      <main className="container px-4 md:px-8 py-8 min-w-0">
         <Link href="/">
           <Button variant="ghost" className="mb-6" data-testid="button-back">
             <ChevronLeft className="h-4 w-4 mr-2" />
@@ -452,8 +452,8 @@ export default function ProductDetail() {
           </Button>
         </Link>
 
-        <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          <div className="space-y-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className="space-y-3 min-w-0">
             <div 
               className="aspect-square w-full overflow-hidden rounded-lg bg-black flex items-center justify-center cursor-pointer"
               onClick={() => {
@@ -516,10 +516,10 @@ export default function ProductDetail() {
             })()}
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0">
             <div>
               <div className="flex items-center justify-between gap-2 flex-wrap">
-                <h1 className="text-3xl md:text-4xl font-bold" data-testid="text-product-name">
+                <h1 className="text-3xl md:text-4xl font-bold min-w-0 break-words [overflow-wrap:anywhere]" data-testid="text-product-name">
                   {product.name}
                 </h1>
                 <Button
@@ -551,9 +551,8 @@ export default function ProductDetail() {
 
 <div className="space-y-2">
   <p 
-    className="text-muted-foreground leading-relaxed whitespace-pre-wrap" 
+    className="text-muted-foreground leading-relaxed whitespace-pre-wrap break-words [overflow-wrap:anywhere]" 
     data-testid="text-product-description"
-    style={{ wordBreak: 'break-word' }}
   >
     {showFullDescription 
       ? product.description 
@@ -586,7 +585,7 @@ export default function ProductDetail() {
                       ) : null}
                       <AvatarFallback>{product.merchant.username.charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <span
                           className="font-semibold cursor-pointer hover:underline"
@@ -651,7 +650,7 @@ export default function ProductDetail() {
                       {purchaseStatus.snapshot.afterBuyMessage && (
                         <div className="space-y-2">
                           <p className="text-sm font-medium text-muted-foreground">Message from seller:</p>
-                          <p className="text-sm whitespace-pre-wrap" data-testid="text-after-buy-message">
+                          <p className="text-sm whitespace-pre-wrap break-words [overflow-wrap:anywhere]" data-testid="text-after-buy-message">
                             {purchaseStatus.snapshot.afterBuyMessage}
                           </p>
                         </div>
@@ -872,7 +871,7 @@ export default function ProductDetail() {
                           {review.username.charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="flex-1 space-y-2">
+                      <div className="flex-1 min-w-0 space-y-2">
                         <div className="flex items-center justify-between gap-2 flex-wrap">
                           <div className="flex items-center gap-2 flex-wrap">
                             <p className="font-semibold" data-testid={`text-review-username-${review.id}`}>
@@ -951,7 +950,7 @@ export default function ProductDetail() {
                             </div>
                           </div>
                         ) : (
-                          <p className="text-muted-foreground" data-testid={`text-review-comment-${review.id}`}>
+                          <p className="text-muted-foreground break-words [overflow-wrap:anywhere]" data-testid={`text-review-comment-${review.id}`}>
                             {review.comment}
                             {review.isEdited && (
                               <span className="ml-2 text-xs text-muted-foreground/60 italic">(edited)</span>
